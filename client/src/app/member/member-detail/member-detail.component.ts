@@ -5,11 +5,12 @@ import { Member } from '../../_models/member';
 import { distinctUntilChanged } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 
 @Component({
   selector: 'app-member-detail',
   standalone: true,
-  imports: [TabsModule],
+  imports: [TabsModule, GalleryModule],
   templateUrl: './member-detail.component.html',
   styleUrl: './member-detail.component.scss',
 })
@@ -18,6 +19,7 @@ export class MemberDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private destroyed = inject(DestroyRef);
   member?: Member;
+  images: GalleryItem[] = [];
 
   ngOnInit(): void {
     this.loadMember();
@@ -30,7 +32,12 @@ export class MemberDetailComponent implements OnInit {
         .getMember(username)
         .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyed))
         .subscribe({
-          next: (member) => (this.member = member),
+          next: (member) => {
+            this.member = member;
+            member.photos.map((p) => {
+              this.images.push(new ImageItem({ src: p.url, thumb: p.url }));
+            });
+          },
         });
     }
   }
