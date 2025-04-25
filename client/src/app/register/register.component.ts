@@ -1,5 +1,4 @@
-import { TitleCasePipe } from '@angular/common';
-import { Component, DestroyRef, inject, input, output } from '@angular/core';
+import { Component, DestroyRef, inject, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AccountService } from '../_services/account.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -9,7 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, TitleCasePipe],
+  imports: [FormsModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -18,7 +17,6 @@ export class RegisterComponent {
   private toastr = inject(ToastrService);
 
   destroyRef = inject(DestroyRef);
-  usersFromHomeComponent = input.required<any>();
   cancelRegister = output<boolean>();
   model: any = {};
 
