@@ -23,7 +23,7 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class NavComponent {
   accountService = inject(AccountService);
-  private destroyed$ = inject(DestroyRef);
+  private destroyed = inject(DestroyRef);
   private router = inject(Router);
   private toastr = inject(ToastrService);
   model: any = {};
@@ -31,7 +31,7 @@ export class NavComponent {
   login() {
     this.accountService
       .login(this.model)
-      .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyed$))
+      .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyed))
       .subscribe({
         next: () => this.router.navigateByUrl('/members'),
         error: (error) => this.toastr.error(error.error),

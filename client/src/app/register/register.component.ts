@@ -15,15 +15,15 @@ import { ToastrService } from 'ngx-toastr';
 export class RegisterComponent {
   private accountService = inject(AccountService);
   private toastr = inject(ToastrService);
+  private destroyed = inject(DestroyRef);
 
-  destroyRef = inject(DestroyRef);
   cancelRegister = output<boolean>();
   model: any = {};
 
   register() {
     this.accountService
       .register(this.model)
-      .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+      .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyed))
       .subscribe({
         next: () => this.cancel(),
         error: (error) => this.toastr.error(error.error),

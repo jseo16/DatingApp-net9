@@ -13,7 +13,7 @@ import { MemberCardComponent } from '../../members/member-card/member-card.compo
   styleUrl: './member-list.component.scss',
 })
 export class MemberListComponent implements OnInit {
-  private destroyRef = inject(DestroyRef);
+  private destroyed = inject(DestroyRef);
   private membersService = inject(MembersService);
   members: Member[] = [];
 
@@ -24,7 +24,7 @@ export class MemberListComponent implements OnInit {
   loadMembers() {
     this.membersService
       .getMembers()
-      .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyRef))
+      .pipe(distinctUntilChanged(), takeUntilDestroyed(this.destroyed))
       .subscribe({
         next: (members) => (this.members = members),
       });
