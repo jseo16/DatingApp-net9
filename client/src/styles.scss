@@ -1,1 +1,55 @@
-/* You can add global styles to this file, and also import other style files */
+.tab-container {
+  padding: 10px;
+  border-radius: 4px;
+
+  .nav-tabs {
+    margin-bottom: 16px;
+    li {
+      &:hover {
+        border: none !important;
+        border-bottom: 4px solid #fbcdcf;
+
+        a {
+          border: none !important;
+          background: none !important;
+          color: #333333;
+          i {
+            color: #a6a6a6;
+          }
+        }
+
+        .dropdown-menu {
+          margin-top: 0px;
+        }
+      }
+    }
+
+    li.active {
+      border-bottom: 4px solid #e95420;
+      position: relative;
+
+      a {
+        border: none !important;
+        color: #333333;
+
+        i {
+          color: #404040;
+        }
+      }
+    }
+
+    .nav-link {
+      border: none !important;
+    }
+  }
+}
+
+.member-tabset {
+  .tab-content {
+    margin-top: -3px;
+    background-color: #fff;
+    border: 0;
+    border-top: 1px solid #eee;
+    padding: 15px 0;
+  }
+}
